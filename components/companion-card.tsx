@@ -26,6 +26,7 @@ export function CompanionCard({ companion }: CompanionCardProps) {
               sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
               onError={(e) => {
                 const target = e.target as HTMLImageElement
+                if (target.src.includes("placeholder.svg")) return
                 target.src = "/placeholder.svg?height=400&width=300"
               }}
             />
