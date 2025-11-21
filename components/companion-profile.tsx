@@ -3,9 +3,11 @@
 import { Button } from "@/components/ui/button"
 import { Badge } from "@/components/ui/badge"
 import { Card, CardContent } from "@/components/ui/card"
-import { Star, MapPin, CheckCircle2, Clock, DollarSign } from "lucide-react"
+import { Star, MapPin, CheckCircle2, Clock, DollarSign, Play } from "lucide-react"
 import type { Companion } from "@/lib/types"
 import { useRouter } from "next/navigation"
+import Image from "next/image"
+import { useState } from "react"
 
 interface CompanionProfileProps {
   companion: Companion
@@ -13,6 +15,7 @@ interface CompanionProfileProps {
 
 export function CompanionProfile({ companion }: CompanionProfileProps) {
   const router = useRouter()
+  const [playingVideo, setPlayingVideo] = useState<string | null>(null)
 
   return (
     <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
@@ -20,28 +23,62 @@ export function CompanionProfile({ companion }: CompanionProfileProps) {
         <div className="grid grid-cols-2 gap-4 mb-6">
           <div className="col-span-2 aspect-[16/9] relative bg-muted rounded-lg overflow-hidden">
             {companion.avatar_url ? (
-              <img
+              <Image
                 src={companion.avatar_url || "/placeholder.svg"}
                 alt={companion.display_name}
-                className="object-cover w-full h-full"
+                fill
+                className="object-cover"
+                sizes="(max-width: 1024px) 100vw, 66vw"
+                priority
               />
             ) : (
-              <div className="w-full h-full flex items-center justify-center">
-                <span className="text-6xl text-muted-foreground">{companion.display_name[0]}</span>
+              <div className="w-full h-full flex items-center justify-center bg-gradient-to-br from-primary/10 to-accent/10">
+                <span className="text-6xl font-bold text-gray-300">{companion.display_name[0]}</span>
               </div>
             )}
           </div>
 
           {companion.images &&
-            companion.images.slice(0, 4).map((image, idx) => (
-              <div key={idx} className="aspect-square relative bg-muted rounded-lg overflow-hidden">
-                <img
-                  src={image || "/placeholder.svg"}
-                  alt={`${companion.display_name} ${idx + 1}`}
-                  className="object-cover w-full h-full"
-                />
-              </div>
-            ))}
+            companion.images.slice(0, 4).map((media, idx) => {
+              const isVideo = media.endsWith(".mp4") || media.endsWith(".webm")
+
+              return (
+                <div key={idx} className="aspect-square relative bg-muted rounded-lg overflow-hidden group">
+                  {isVideo ? (
+                    <>
+                      <video
+                        src={media}
+                        className="object-cover w-full h-full"
+                        loop
+                        muted
+                        playsInline
+                        ref={(el) => {
+                          if (el && playingVideo === media) {
+                            el.play()
+                          }
+                        }}
+                      />
+                      <button
+                        onClick={() => setPlayingVideo(playingVideo === media ? null : media)}
+                        className="absolute inset-0 flex items-center justify-center bg-black/30 group-hover:bg-black/50 transition-colors"
+                      >
+                        <div className="w-12 h-12 rounded-full bg-white/90 flex items-center justify-center">
+                          <Play className="w-6 h-6 text-gray-900 ml-1" />
+                        </div>
+                      </button>
+                    </>
+                  ) : (
+                    <Image
+                      src={media || "/placeholder.svg"}
+                      alt={`${companion.display_name} ${idx + 1}`}
+                      fill
+                      className="object-cover group-hover:scale-105 transition-transform duration-300"
+                      sizes="(max-width: 768px) 50vw, 25vw"
+                    />
+                  )}
+                </div>
+              )
+            })}
         </div>
 
         <div className="space-y-6">
