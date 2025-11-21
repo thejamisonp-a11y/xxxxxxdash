@@ -22,10 +22,12 @@ export function SiteHeader() {
 
   return (
     <header className="sticky top-0 z-50 w-full bg-gradient-primary shadow-md">
-      <div className="container flex h-16 items-center justify-between px-4">
+      {/* Changed h-16 to h-auto py-4 to accommodate larger logo */}
+      <div className="container flex h-auto py-4 items-center justify-between px-4">
         {/* Logo */}
         <Link href="/" className="flex items-center space-x-2 flex-shrink-0">
-          <Image src="/whoredash-logo.png" alt="whoredash" width={128} height={32} className="h-8 w-auto" priority />
+          {/* Increased logo height to h-32 and updated dimensions */}
+          <Image src="/whoredash-logo.png" alt="whoredash" width={512} height={128} className="h-32 w-auto" priority />
         </Link>
 
         {/* Desktop Navigation */}
