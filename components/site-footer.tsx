@@ -15,7 +15,7 @@ export function SiteFooter() {
                 alt="whoredash"
                 width={160}
                 height={40}
-                className="h-10 w-auto"
+                className="h-32 w-auto"
                 priority
               />
             </Link>

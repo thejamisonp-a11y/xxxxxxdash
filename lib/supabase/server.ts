@@ -1,13 +1,10 @@
-import { createServerClient as createSupabaseServerClient } from "@supabase/ssr"
+import { createServerClient as createSSRClient } from "@supabase/ssr"
 import { cookies } from "next/headers"
 
 export async function createServerClient() {
   const cookieStore = await cookies()
 
-  const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL || ""
-  const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY || ""
-
-  return createSupabaseServerClient(process.env.NEXT_PUBLIC_SUPABASE_URL!, process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!, {
+  return createSSRClient(process.env.NEXT_PUBLIC_SUPABASE_URL!, process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!, {
     cookies: {
       getAll() {
         return cookieStore.getAll()
@@ -24,4 +21,5 @@ export async function createServerClient() {
   })
 }
 
+// Backwards compatibility
 export const createClient = createServerClient

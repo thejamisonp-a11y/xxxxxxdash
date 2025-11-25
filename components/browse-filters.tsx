@@ -28,9 +28,9 @@ export function BrowseFilters() {
   }
 
   return (
-    <div className="bg-white border-b shadow-sm sticky top-16 z-40 p-12 text-center">
-      <div className="container px-4 md:px-6 py-4">
-        <div className="flex flex-wrap items-center gap-3">
+    <div className="bg-white border-b shadow-sm sticky top-16 z-40 text-center p-[auto] m-auto">
+      <div className="container leading-5 m-[ay] p-[auto] px-[auto]">
+        <div className="flex flex-wrap ml-2.5 px-2.5 gap-[10] justify-evenly items-start leading-6 text-left">
           <Select value={gender} onValueChange={setGender}>
             <SelectTrigger className="w-[160px] bg-white">
               <SelectValue placeholder="All Genders" />

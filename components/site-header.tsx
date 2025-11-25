@@ -23,7 +23,7 @@ export function SiteHeader() {
   return (
     <header className="sticky top-0 z-50 w-full bg-gradient-primary shadow-md">
       {/* Changed h-16 to h-auto py-4 to accommodate larger logo */}
-      <div className="container flex h-auto py-4 items-center justify-between px-4">
+      <div className="container flex h-auto items-center py-px gap-7 justify-around font-extralight text-justify px-4 leading-4 text-3xl shadow-md">
         {/* Logo */}
         <Link href="/" className="flex items-center space-x-2 flex-shrink-0">
           {/* Increased logo height to h-32 and updated dimensions */}
@@ -31,10 +31,10 @@ export function SiteHeader() {
         </Link>
 
         {/* Desktop Navigation */}
-        <nav className="hidden lg:flex items-center gap-1">
+        <nav className="hidden lg:flex items-center gap-1 font-normal">
           <Link
             href="/browse"
-            className="px-3 py-2 text-sm font-medium text-white hover:bg-white/10 rounded transition-colors"
+            className="px-3 py-2 font-medium text-white hover:bg-white/10 rounded transition-colors text-base"
           >
             Browse
           </Link>
