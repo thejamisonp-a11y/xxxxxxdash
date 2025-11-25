@@ -23,7 +23,7 @@ export function SiteHeader() {
   return (
     <header className="sticky top-0 z-50 w-full bg-gradient-primary shadow-md">
       {/* Changed h-16 to h-auto py-4 to accommodate larger logo */}
-      <div className="container flex h-auto items-center py-px gap-7 justify-around font-extralight text-justify px-4 leading-4 text-3xl shadow-md">
+      <div className="container flex h-auto items-center py-px gap-7 justify-around font-extralight text-justify px-4 leading-4 shadow-md text-2xl">
         {/* Logo */}
         <Link href="/" className="flex items-center space-x-2 flex-shrink-0">
           {/* Increased logo height to h-32 and updated dimensions */}
