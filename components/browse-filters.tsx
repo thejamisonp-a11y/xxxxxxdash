@@ -1,9 +1,9 @@
 "use client"
 
-import { useRouter, useSearchParams } from 'next/navigation'
+import { useRouter, useSearchParams } from "next/navigation"
 import { Button } from "@/components/ui/button"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
-import { ChevronDown } from 'lucide-react'
+import { Filter, X } from "lucide-react"
 import { useState } from "react"
 
 export function BrowseFilters() {
@@ -27,27 +27,46 @@ export function BrowseFilters() {
     router.push(`/browse${params.toString() ? `?${params.toString()}` : ""}`)
   }
 
+  const clearFilters = () => {
+    setGender("all")
+    setStatus("all")
+    setPriceRange("any")
+    setDistance("any")
+    setRating("any")
+    router.push("/browse")
+  }
+
+  const hasActiveFilters =
+    gender !== "all" || status !== "all" || priceRange !== "any" || distance !== "any" || rating !== "any"
+
   return (
-    <div className="bg-white border-b shadow-sm sticky top-16 z-40 text-center p-[auto] m-auto">
-      <div className="container leading-5 m-[ay] p-[auto] px-[auto]">
-        <div className="flex flex-wrap ml-2.5 px-2.5 gap-[10] justify-evenly items-start leading-6 text-left">
+    <div className="bg-white border-b shadow-sm sticky top-[88px] md:top-[140px] z-40">
+      <div className="container px-4 py-4">
+        <div className="flex flex-wrap items-center gap-3">
+          {/* Filter Icon */}
+          <div className="flex items-center gap-2 text-sm font-medium text-muted-foreground">
+            <Filter className="h-4 w-4" />
+            <span className="hidden sm:inline">Filters:</span>
+          </div>
+
+          {/* Gender Filter */}
           <Select value={gender} onValueChange={setGender}>
-            <SelectTrigger className="w-[160px] bg-white">
+            <SelectTrigger className="w-[140px] bg-white border-gray-200">
               <SelectValue placeholder="All Genders" />
-              <ChevronDown className="h-4 w-4 ml-2 opacity-50" />
             </SelectTrigger>
             <SelectContent>
               <SelectItem value="all">All Genders</SelectItem>
               <SelectItem value="women">Women</SelectItem>
               <SelectItem value="men">Men</SelectItem>
               <SelectItem value="trans">Trans</SelectItem>
+              <SelectItem value="nonbinary">Non-Binary</SelectItem>
             </SelectContent>
           </Select>
 
+          {/* Status Filter */}
           <Select value={status} onValueChange={setStatus}>
-            <SelectTrigger className="w-[160px] bg-white">
+            <SelectTrigger className="w-[150px] bg-white border-gray-200">
               <SelectValue placeholder="All Status" />
-              <ChevronDown className="h-4 w-4 ml-2 opacity-50" />
             </SelectTrigger>
             <SelectContent>
               <SelectItem value="all">All Status</SelectItem>
@@ -56,10 +75,10 @@ export function BrowseFilters() {
             </SelectContent>
           </Select>
 
+          {/* Price Range Filter */}
           <Select value={priceRange} onValueChange={setPriceRange}>
-            <SelectTrigger className="w-[160px] bg-white">
+            <SelectTrigger className="w-[140px] bg-white border-gray-200">
               <SelectValue placeholder="Price Range" />
-              <ChevronDown className="h-4 w-4 ml-2 opacity-50" />
             </SelectTrigger>
             <SelectContent>
               <SelectItem value="any">Any Price</SelectItem>
@@ -70,10 +89,10 @@ export function BrowseFilters() {
             </SelectContent>
           </Select>
 
+          {/* Distance Filter */}
           <Select value={distance} onValueChange={setDistance}>
-            <SelectTrigger className="w-[160px] bg-white">
+            <SelectTrigger className="w-[150px] bg-white border-gray-200">
               <SelectValue placeholder="Any Distance" />
-              <ChevronDown className="h-4 w-4 ml-2 opacity-50" />
             </SelectTrigger>
             <SelectContent>
               <SelectItem value="any">Any Distance</SelectItem>
@@ -84,10 +103,10 @@ export function BrowseFilters() {
             </SelectContent>
           </Select>
 
+          {/* Rating Filter */}
           <Select value={rating} onValueChange={setRating}>
-            <SelectTrigger className="w-[160px] bg-white">
+            <SelectTrigger className="w-[130px] bg-white border-gray-200">
               <SelectValue placeholder="Any Rating" />
-              <ChevronDown className="h-4 w-4 ml-2 opacity-50" />
             </SelectTrigger>
             <SelectContent>
               <SelectItem value="any">Any Rating</SelectItem>
@@ -97,9 +116,18 @@ export function BrowseFilters() {
             </SelectContent>
           </Select>
 
-          <Button onClick={handleFilter} className="ml-auto bg-gradient-primary text-white">
-            Apply Filters
-          </Button>
+          {/* Action Buttons */}
+          <div className="flex items-center gap-2 ml-auto">
+            {hasActiveFilters && (
+              <Button variant="ghost" size="sm" onClick={clearFilters} className="text-muted-foreground">
+                <X className="h-4 w-4 mr-1" />
+                Clear
+              </Button>
+            )}
+            <Button onClick={handleFilter} size="sm" className="bg-gradient-primary text-white">
+              Apply Filters
+            </Button>
+          </div>
         </div>
       </div>
     </div>

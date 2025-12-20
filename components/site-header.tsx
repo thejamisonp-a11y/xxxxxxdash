@@ -20,27 +20,41 @@ export function SiteHeader() {
     setMobileMenuOpen(false)
   }
 
+  const navButtonStyles = `
+    px-4 py-2 text-sm font-semibold text-white 
+    bg-white/10 backdrop-blur-sm
+    border border-white/20
+    rounded-lg
+    shadow-[0_4px_0_0_rgba(0,0,0,0.2),inset_0_1px_0_0_rgba(255,255,255,0.2)]
+    hover:shadow-[0_2px_0_0_rgba(0,0,0,0.2),inset_0_1px_0_0_rgba(255,255,255,0.2)]
+    hover:translate-y-[2px]
+    active:shadow-none active:translate-y-[4px]
+    transition-all duration-100
+  `
+
   return (
-    <header className="sticky top-0 z-50 w-full bg-gradient-primary shadow-md">
-      {/* Changed h-16 to h-auto py-4 to accommodate larger logo */}
-      <div className="container flex h-auto items-center py-px gap-7 justify-around font-extralight text-justify px-4 leading-4 shadow-md text-2xl">
+    <header className="sticky top-0 z-50 w-full bg-gradient-primary shadow-lg">
+      <div className="container flex h-auto items-center py-3 px-4 justify-between">
         {/* Logo */}
-        <Link href="/" className="flex items-center space-x-2 flex-shrink-0">
-          {/* Increased logo height to h-32 and updated dimensions */}
-          <Image src="/whoredash-logo.png" alt="whoredash" width={512} height={128} className="h-32 w-auto" priority />
+        <Link href="/" className="flex items-center flex-shrink-0">
+          <Image
+            src="/whoredash-logo.png"
+            alt="whoredash"
+            width={512}
+            height={128}
+            className="h-20 md:h-32 w-auto"
+            priority
+          />
         </Link>
 
-        {/* Desktop Navigation */}
-        <nav className="hidden lg:flex items-center gap-1 font-normal">
-          <Link
-            href="/browse"
-            className="px-3 py-2 font-medium text-white hover:bg-white/10 rounded transition-colors text-base"
-          >
+        {/* Desktop Navigation with 3D Buttons */}
+        <nav className="hidden lg:flex items-center gap-2">
+          <Link href="/browse" className={navButtonStyles}>
             Browse
           </Link>
 
           <DropdownMenu>
-            <DropdownMenuTrigger className="px-3 py-2 flex items-center gap-1 text-sm font-medium text-white hover:bg-white/10 rounded transition-colors">
+            <DropdownMenuTrigger className={`${navButtonStyles} flex items-center gap-1`}>
               Categories
               <ChevronDown className="h-4 w-4" />
             </DropdownMenuTrigger>
@@ -57,24 +71,15 @@ export function SiteHeader() {
             </DropdownMenuContent>
           </DropdownMenu>
 
-          <Link
-            href="/membership"
-            className="px-3 py-2 text-sm font-medium text-white hover:bg-white/10 rounded transition-colors"
-          >
+          <Link href="/membership" className={navButtonStyles}>
             VIP
           </Link>
 
-          <Link
-            href="/events"
-            className="px-3 py-2 text-sm font-medium text-white hover:bg-white/10 rounded transition-colors"
-          >
+          <Link href="/events" className={navButtonStyles}>
             Events
           </Link>
 
-          <Link
-            href="/safety"
-            className="px-3 py-2 text-sm font-medium text-white hover:bg-white/10 rounded transition-colors"
-          >
+          <Link href="/safety" className={navButtonStyles}>
             Safety
           </Link>
         </nav>
@@ -113,11 +118,10 @@ export function SiteHeader() {
               Sign In
             </Button>
             <Button
-              size="sm"
-              className="bg-white text-primary hover:bg-white/90"
+              className="bg-white text-primary hover:bg-white/90 font-semibold shadow-[0_4px_0_0_rgba(0,0,0,0.15)] hover:shadow-[0_2px_0_0_rgba(0,0,0,0.15)] hover:translate-y-[2px] active:shadow-none active:translate-y-[4px] transition-all duration-100"
               onClick={() => router.push("/auth/sign-up")}
             >
-              Join
+              Join Now
             </Button>
           </div>
 
@@ -128,7 +132,7 @@ export function SiteHeader() {
             className="text-white hover:bg-white/10 lg:hidden"
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
           >
-            {mobileMenuOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
+            {mobileMenuOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
           </Button>
         </div>
       </div>
@@ -139,30 +143,30 @@ export function SiteHeader() {
           <div className="container px-4 py-4 space-y-2">
             <Link
               href="/browse"
-              className="block px-3 py-2 text-sm font-medium text-white hover:bg-white/10 rounded transition-colors"
+              className="block px-4 py-3 text-base font-medium text-white hover:bg-white/10 rounded-lg transition-colors"
               onClick={() => setMobileMenuOpen(false)}
             >
-              Browse
+              Browse All
             </Link>
 
-            <div className="px-3 py-2">
-              <p className="text-xs text-white/60 mb-1">Categories</p>
+            <div className="px-4 py-2">
+              <p className="text-xs text-white/60 mb-2 uppercase tracking-wide">Categories</p>
               <div className="space-y-1 pl-2">
                 <button
                   onClick={() => handleCategorySelect("women")}
-                  className="block w-full text-left px-2 py-1.5 text-sm text-white hover:bg-white/10 rounded transition-colors"
+                  className="block w-full text-left px-3 py-2 text-base text-white hover:bg-white/10 rounded-lg transition-colors"
                 >
                   Women
                 </button>
                 <button
                   onClick={() => handleCategorySelect("men")}
-                  className="block w-full text-left px-2 py-1.5 text-sm text-white hover:bg-white/10 rounded transition-colors"
+                  className="block w-full text-left px-3 py-2 text-base text-white hover:bg-white/10 rounded-lg transition-colors"
                 >
                   Men
                 </button>
                 <button
                   onClick={() => handleCategorySelect("trans")}
-                  className="block w-full text-left px-2 py-1.5 text-sm text-white hover:bg-white/10 rounded transition-colors"
+                  className="block w-full text-left px-3 py-2 text-base text-white hover:bg-white/10 rounded-lg transition-colors"
                 >
                   Trans
                 </button>
@@ -171,7 +175,7 @@ export function SiteHeader() {
 
             <Link
               href="/membership"
-              className="block px-3 py-2 text-sm font-medium text-white hover:bg-white/10 rounded transition-colors"
+              className="block px-4 py-3 text-base font-medium text-white hover:bg-white/10 rounded-lg transition-colors"
               onClick={() => setMobileMenuOpen(false)}
             >
               VIP Membership
@@ -179,7 +183,7 @@ export function SiteHeader() {
 
             <Link
               href="/events"
-              className="block px-3 py-2 text-sm font-medium text-white hover:bg-white/10 rounded transition-colors"
+              className="block px-4 py-3 text-base font-medium text-white hover:bg-white/10 rounded-lg transition-colors"
               onClick={() => setMobileMenuOpen(false)}
             >
               Events
@@ -187,7 +191,7 @@ export function SiteHeader() {
 
             <Link
               href="/safety"
-              className="block px-3 py-2 text-sm font-medium text-white hover:bg-white/10 rounded transition-colors"
+              className="block px-4 py-3 text-base font-medium text-white hover:bg-white/10 rounded-lg transition-colors"
               onClick={() => setMobileMenuOpen(false)}
             >
               Safety
@@ -195,43 +199,45 @@ export function SiteHeader() {
 
             <Link
               href="/favorites"
-              className="block px-3 py-2 text-sm font-medium text-white hover:bg-white/10 rounded transition-colors flex items-center gap-2"
+              className="flex items-center gap-3 px-4 py-3 text-base font-medium text-white hover:bg-white/10 rounded-lg transition-colors"
               onClick={() => setMobileMenuOpen(false)}
             >
-              <Heart className="h-4 w-4" />
+              <Heart className="h-5 w-5" />
               Favorites
             </Link>
 
             <Link
               href="/bookings"
-              className="block px-3 py-2 text-sm font-medium text-white hover:bg-white/10 rounded transition-colors flex items-center gap-2"
+              className="flex items-center gap-3 px-4 py-3 text-base font-medium text-white hover:bg-white/10 rounded-lg transition-colors"
               onClick={() => setMobileMenuOpen(false)}
             >
-              <Calendar className="h-4 w-4" />
+              <Calendar className="h-5 w-5" />
               My Bookings
             </Link>
 
-            <hr className="border-white/20 my-3" />
+            <hr className="border-white/20 my-4" />
 
-            <Button
-              variant="ghost"
-              className="w-full text-white hover:bg-white/10 text-sm justify-start"
-              onClick={() => {
-                router.push("/auth/login")
-                setMobileMenuOpen(false)
-              }}
-            >
-              Sign In
-            </Button>
-            <Button
-              className="w-full bg-white text-primary hover:bg-white/90 text-sm"
-              onClick={() => {
-                router.push("/auth/sign-up")
-                setMobileMenuOpen(false)
-              }}
-            >
-              Join as Companion
-            </Button>
+            <div className="flex flex-col gap-2 pt-2">
+              <Button
+                variant="ghost"
+                className="w-full text-white hover:bg-white/10 text-base justify-center py-3"
+                onClick={() => {
+                  router.push("/auth/login")
+                  setMobileMenuOpen(false)
+                }}
+              >
+                Sign In
+              </Button>
+              <Button
+                className="w-full bg-white text-primary hover:bg-white/90 text-base font-semibold py-3"
+                onClick={() => {
+                  router.push("/auth/sign-up")
+                  setMobileMenuOpen(false)
+                }}
+              >
+                Join as Companion
+              </Button>
+            </div>
           </div>
         </div>
       )}
