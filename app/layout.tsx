@@ -14,8 +14,8 @@ const _geist = V0_Font_Geist({ subsets: ['latin'], weight: ["100","200","300","4
 const _geistMono = V0_Font_Geist_Mono({ subsets: ['latin'], weight: ["100","200","300","400","500","600","700","800","900"] })
 const _sourceSerif_4 = V0_Font_Source_Serif_4({ subsets: ['latin'], weight: ["200","300","400","500","600","700","800","900"] })
 
-const geist = Geist({ subsets: ['latin'] })
-const geistMono = Geist_Mono({ subsets: ['latin'] })
+const geist = Geist({ subsets: ["latin"] })
+const geistMono = Geist_Mono({ subsets: ["latin"] })
 
 export const metadata: Metadata = {
   title: "Whoredash - Premium Companions Delivered Fast & Discreet",
@@ -40,9 +40,7 @@ export default function RootLayout({
       <body className={`${geist.className} font-sans antialiased bg-white text-gray-900`}>
         <ThemeProvider>
           <SiteHeader />
-          <main className="min-h-screen">
-            {children}
-          </main>
+          <main className="min-h-screen">{children}</main>
           <SiteFooter />
         </ThemeProvider>
         <Analytics />
